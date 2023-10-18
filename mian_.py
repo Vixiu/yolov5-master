@@ -67,7 +67,6 @@ def getMonitor(screenW, screenH, Width, Height) -> dict:
 
 
 def show_img(WindowName, img, xywh):
-
     for i in xywh:
         cv2.rectangle(img, [i[0], i[1]], [i[2], i[3]], (0, 255, 0), thickness=3)
 
@@ -155,17 +154,17 @@ if __name__ == '__main__':
     parser = argument()
     run(parser(
         screenshot='mss',  # 屏幕捕获方式 有 mss和win32 两种 mss最快,但不支持指定窗口,win32稍慢，但支持指定窗口
-        aiming_range=(402, 68, 1048, 737),  # 检测范围  方式1:以屏幕为中心的方形(长w,高h)  方式2:(左上X,左上Y,长w,高h) 不填为全屏
+        aiming_range=(1, 1, 1048, 1070),  # 检测范围  方式1:以屏幕为中心的方形(长w,高h)  方式2:(左上X,左上Y,长w,高h) 不填为全屏
         #  program_capture='',  # win32指定的窗口，不填为全屏
         #  move_control=1,  # 控制方式 1=pydirectinput库 需要管理员权限打开, 2=罗技驱动,暂时有问题
         view_show=True,  # 是否显示实时检测窗口
-        weights=r'F:\yolov5-master\models\best.pt',  # 权重(模型)-所在位置
+        weights=r'F:\yolov5-master\runs\train\exp3\weights\best.pt',  # 权重(模型)-所在位置
         data=r'F:\yolov5-master\data\data\coco128.yaml',  # 模型所对应的名字 -所在位置
-        conf_thres=0.4,  # 精度
+        conf_thres=0.8,  # 精度
         iou_thres=0.9,  # 交并比(重合的"框"是否合并为一个)
         classes=0,  # 选择目标(对应yaml文件标签,None全选)
         agnostic_nms=False,  # 增强检测，可能会出错 类似精度
-        max_det=1,  # 每张图最多识别数量,可以改成1
+        max_det=10,  # 每张图最多识别数量
         imgsz=640,  # 与权重对应
         resolution=get_resolution(),  # 桌面分辨率,不填为自动获取 自瞄范围 方式1 根据此计算
         device=select_device(''),  # 自动选择Gpu,cpu 优先选择GPU 默认不需要动,除非要手动选择设备
